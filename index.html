@@ -1,0 +1,211 @@
+<html>
+    <head>
+        <title>roy clicker vAlpha</title>
+        <link rel="shortcut icon" type="image/png" href="images/nut2.png"/>
+        <style>
+            .sectionleft {
+                float: left;
+                width: 80%
+            }
+            .sectionright {
+                float: right;
+                width: 20%;
+            }
+            .scorecontainer {
+                background-color: rgba(90, 127, 179, 0.6);
+                width: 50%;
+                padding: 10px;
+                border-radius: 10px;
+                font-size: 30px;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            .clickercontainer img {
+                position: relative;
+                transition: all .2s ease-in-out;
+            }
+
+            .clickercontainer img:hover { transform: scale(1.1); }
+            .clickercontainer img:active { transform: scale(0.99); }
+
+            .shopbutton {
+                background-color: #5a7fb399;
+                transition: all .2s ease-in-out;
+                border-radius: 5px;
+                width: 100%;
+                margin: 10px 0px 10px 0px;
+            }
+
+            .shopbutton:hover {
+                background-color: #a4bfe79a;
+                transition: all .2s ease-in-out;
+            }
+
+            .shopbutton #image {
+                width: 25%;
+            }
+
+            .shopbutton img {
+                height: 64px;
+                width: 64px;
+
+            }
+
+            .shopbutton #nameandcost p {
+                margin: 0px;
+                width: 60%;
+
+            }
+
+            .shopbutton #nameandcost p:first-of-type {
+                 font-size: 24px;
+                 color:aliceblue;
+                 font-family: Arial, Helvetica, sans-serif;
+                 width: 15%;
+                
+            }
+
+            .sectionfooter {
+                margin-top: 20%;
+
+
+            }
+
+            .shopbutton #amount {
+                font-size: 48px;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            .unselectable {
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+                
+        </style>
+    </head>
+
+    <body>
+    <div class="sectionleft">
+        <center>
+        <font size="+30">roy clicker vAlpha</font>
+            <div class="scorecontainer unselectable">
+            <span id="score">0</span> money<br>
+            <span id="scorepersecond">0</span> money per second
+        </div>
+        <br>
+        <div  class="clickercontainer unselectable">
+        <img src="images/nut2.png" height="360px" width="360px" onclick="addtoscore(clickingPower)">
+        </div>
+        </center>
+    
+        <div class="sectionfooter">
+            <h5></h5>
+        </div>
+    
+    </div>
+
+    <div class="sectionright">
+        <table class="shopbutton unselectable" onclick="buycursor()">
+            <tr>
+                <td id="image"><img src="images/smallhand.png"></td>
+                <td id= "nameandcost">
+                    <p>Hand</p>
+                    <p><span id="cursorcost">15</span> money</p>
+                </td>
+                <td id="amount"><span id="cursors">0</span></td>    
+             </tr>       
+        </table>
+        <table class="shopbutton unselectable" onclick="buyrobot()">
+            <tr>
+                <td id="image"><img src="images/robot.jpg"></td>
+                <td id= "nameandcost">
+                    <p>Robot</p>
+                    <p><span id="robotcost">75</span> money</p>
+                </td>
+                <td id="amount"><span id="robots">0</span></td>    
+             </tr>       
+        </table>
+        <table class="shopbutton unselectable" onclick="buydh()">
+            <tr>
+                <td id="image"><img src="images/dh.png"></td>
+                <td id= "nameandcost">
+                    <p>DH</p>
+                    <p><span id="dhcost">150</span> money</p>
+                </td>
+                <td id="amount"><span id="dh">0</span></td>    
+             </tr>       
+        </table>
+    </div>
+    
+    <script>
+            var score = 0;
+            var clickingPower = 1
+
+            var cursorcost = 15;
+            var cursors = 0;
+            var robotcost = 75;
+            var robots = 0;
+            var dhcost = 150;
+            var dh = 0;
+
+            function buycursor () {
+                if (score >= cursorcost) {
+                     score =  score - cursorcost;
+                     cursors = cursors + 1;
+                     cursorcost = Math.round(cursorcost * 1.15);
+
+                     document.getElementById("score").innerHTML = score;
+                     document.getElementById("cursorcost").innerHTML = cursorcost;
+                     document.getElementById("cursors").innerHTML = cursors;
+                     updatescorepersecond();
+                    }
+            }
+            function buyrobot () {
+                if (score >= robotcost) {
+                     score =  score - robotcost;
+                     robots = robots + 1;
+                     robotcost = Math.round(robotcost * 1.15);
+
+                     document.getElementById("score").innerHTML = score;
+                     document.getElementById("robotcost").innerHTML = robotcost;
+                     document.getElementById("robots").innerHTML = robots;
+                     updatescorepersecond();
+                    }
+            }
+            function buydh () {
+                if (score >= dhcost) {
+                     score =  score - dhcost;
+                     dh = dh + 1;
+                     dhcost = Math.round(dhcost * 1.15);
+
+                     document.getElementById("score").innerHTML = score;
+                     document.getElementById("dhcost").innerHTML = dhcost;
+                     document.getElementById("dh").innerHTML = dh;
+                     updatescorepersecond();
+                    }
+            }
+
+            function addtoscore (amount) {
+                score = score + amount;
+                document.getElementById("score").innerHTML = score;
+            }
+
+            function updatescorepersecond() {
+                scorepersecond =  cursors + robots * 5 + dh * 10;
+                document.getElementById("scorepersecond").innerHTML = scorepersecond;
+            }
+            
+                        setInterval(function()  {
+                score = score + cursors;
+                score = score + robots * 5
+                score = score + dh * 10
+                document.getElementById ("score").innerHTML = score;
+                
+                document.title = score + " money - roy clicker v1"
+
+            }, 1000); // 1000ms = 1 second 
+        </script>
+    </body>
+</html>
