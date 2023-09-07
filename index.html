@@ -4,8 +4,8 @@
         <title>roy clicker vAlpha</title>
         <link rel="shortcut icon" type="image/png" href="images/nut2.png"/>
         <body>
-            <font font-family="Arial">press ctrl + s to save - or:</font>
             <button onclick="saveGame();">save game</button>
+            <button onclick="resetgame();">reset game</button>
             
         </body>
         <style>
@@ -157,9 +157,10 @@
              </tr>       
         </table>
     </div>
+                    <font font-family="Arial">press ctrl + s to save - or:</font>
     
     <script>
-            var score = 0;
+          var score = 0;
             var clickingPower = 1
 
             var cursorcost = 15;
@@ -259,6 +260,14 @@
                     clone: clone,
                 };
                 localStorage.setItem("gamesave", JSON.stringify(gamesave));
+            }
+
+            function resetgame () {
+                 if (confirm("Are you sure you want to reset the game?")) {
+                    var gamesave = {};
+                    localStorage.setItem("gamesave", JSON.stringify(gamesave));
+                    location.reload();
+                 }
             }
              
            window.onload = function() {
